@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Connection;
+use App\Models\WaitedForConnections;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ConnectionResourceWithoutWaitFor extends JsonResource
+/** @mixin \App\Models\Connection */
+class ConnectionDetailResource extends JsonResource
 {
     public $collects = 'App\Http\Models\Connection';
 
@@ -24,7 +27,8 @@ class ConnectionResourceWithoutWaitFor extends JsonResource
             'line_number' => $this->line_number,
             'service_number' => $this->service_number,
 
-            'current_state' => $this->when($this->snapshots()->orderByDesc("created_at")->count() > 0, new SnapshotResource($this->snapshots()->orderByDesc("created_at")->first())),
+            'current_state' => $this->when($this->snapshots()->exists(), new SnapshotResource($this->snapshots()->orderByDesc("created_at")->first())),
+            'waits_for' => WaitedForResource::collection(WaitedForConnections::where("awaiter_id", "=", $this->id)->get()),
 
             'from' => $this->from,
             'to' => $this->to,
@@ -32,3 +36,4 @@ class ConnectionResourceWithoutWaitFor extends JsonResource
         ];
     }
 }
+

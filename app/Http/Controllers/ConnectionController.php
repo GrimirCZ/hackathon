@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ConnectionDetailResource;
 use App\Http\Resources\ConnectionResource;
 use App\Models\Connection;
 use Illuminate\Http\Request;
@@ -40,13 +41,12 @@ class ConnectionController extends Controller
      * Display the specified resource.
      *
      * @param $id
-     * @return ConnectionResource
+     * @return ConnectionDetailResource
      */
     public function show($id)
     {
-        $con = Connection::findOrFail($id);
         //
-        return new ConnectionResource($con);
+        return new ConnectionDetailResource(Connection::findOrFail($id));
     }
 
     /**
