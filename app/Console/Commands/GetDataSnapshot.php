@@ -22,6 +22,10 @@ class GetDataSnapshot extends Command
 
     public function handle()
     {
+        Snapshot::query()->update([
+            'is_old' => true
+        ]);
+
         $res = collect(Http::get("https://tabule.oredo.cz/idspublicservices/api/service/position")
             ->throw()
             ->json());

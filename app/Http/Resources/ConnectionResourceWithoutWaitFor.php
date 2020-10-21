@@ -2,11 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Connection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Connection */
-class ConnectionResource extends JsonResource
+class ConnectionResourceWithoutWaitFor extends JsonResource
 {
     public $collects = 'App\Http\Models\Connection';
 
@@ -34,4 +32,3 @@ class ConnectionResource extends JsonResource
         ];
     }
 }
-

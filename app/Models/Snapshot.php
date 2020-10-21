@@ -13,6 +13,8 @@ class Snapshot extends Model
 
         'depart_time', 'dest_time',
 
+        'is_old',
+
         'connection_id'
     ];
 

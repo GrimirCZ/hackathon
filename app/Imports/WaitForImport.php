@@ -74,6 +74,7 @@ class WaitForImport implements ToCollection, WithHeadingRow
 
                 if($id1 == $id2){
                     $this->logger->info("id1 = id2 (" . $id2 . ")");
+                    return;
                 }
 
                 $this->logger->info("id1: " . $id1 . " id2: " . $id2);

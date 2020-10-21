@@ -17,7 +17,7 @@ class ConnectionController extends Controller
     {
         //
 
-        return ConnectionResource::collection(Connection::all());
+        return ConnectionResource::collection(Connection::where('is_old', false)->load(['snapshots']));
     }
 
     /**
