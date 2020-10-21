@@ -16,11 +16,11 @@ class CreateTableSnapshots extends Migration
             $table->float("lat", 8, 6);
             $table->float("lon", 8, 6);
 
-            $table->string("time");
+            $table->datetime("time");
             $table->integer("delay")->nullable();
 
-            $table->string("depart_time");
-            $table->string("dest_time");
+            $table->datetime("depart_time");
+            $table->datetime("dest_time");
 
             //
 

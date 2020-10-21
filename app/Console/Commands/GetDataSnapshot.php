@@ -15,6 +15,11 @@ class GetDataSnapshot extends Command
 
     protected $description = 'Get data snapshot from OREDO';
 
+    private function make_datetime($time)
+    {
+        return date("Y-m-d") . " " . $time;
+    }
+
     public function handle()
     {
         $res = collect(Http::get("https://tabule.oredo.cz/idspublicservices/api/service/position")
@@ -43,11 +48,11 @@ class GetDataSnapshot extends Command
                 'lat' => $row['lat'],
                 'lon' => $row['lon'],
 
-                'time' => $row['time'],
+                'time' => $this->make_datetime($row['time']),
                 'delay' => $row['delay'] ?? null,
 
-                'depart_time' => $row['depTime'],
-                'dest_time' => $row['destTime'],
+                'depart_time' => $this->make_datetime($row['depTime']),
+                'dest_time' => $this->make_datetime($row['destTime']),
 
                 'connection_id' => $con->id
             ]);
