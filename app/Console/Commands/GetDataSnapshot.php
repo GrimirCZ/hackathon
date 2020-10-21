@@ -58,6 +58,8 @@ class GetDataSnapshot extends Command
                 'depart_time' => $this->make_datetime($row['depTime']),
                 'dest_time' => $this->make_datetime($row['destTime']),
 
+                'is_old' => false,
+
                 'connection_id' => $con->id
             ]);
         }

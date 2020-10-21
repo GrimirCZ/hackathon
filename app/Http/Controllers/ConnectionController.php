@@ -18,7 +18,10 @@ class ConnectionController extends Controller
         //
 
         return ConnectionResource::collection(
-            Connection::join("snapshots", "snapshots.connection_id", "=", "connections.id")->where('is_old', false)->get()
+            Connection::join("snapshots", "snapshots.connection_id", "=", "connections.id")
+                ->where('is_old', false)
+                ->select("connections.*")
+                ->get()
         );
     }
 
