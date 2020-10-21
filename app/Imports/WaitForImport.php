@@ -68,38 +68,40 @@ class WaitForImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach($rows as $row){
-            $id1 = "S-" . $row['line1'] . "-" . $row['service1'];
-            $id2 = "S-" . $row['line2'] . "-" . $row['service2'];
+            DB::transaction(function() use ($row){
+                $id1 = "S-" . $row['line1'] . "-" . $row['service1'];
+                $id2 = "S-" . $row['line2'] . "-" . $row['service2'];
 
-            if($id1 == $id2){
-                $this->logger->info("id1 = id2 (" . $id2 . ")");
-            }
+                if($id1 == $id2){
+                    $this->logger->info("id1 = id2 (" . $id2 . ")");
+                }
 
-            $this->logger->info("id1: " . $id1 . " id2: " . $id2);
+                $this->logger->info("id1: " . $id1 . " id2: " . $id2);
 
 
-            $awaits = $this->get_data_for_connection($id1);
+                $awaits = $this->get_data_for_connection($id1);
 
-            $awaited_for = $this->get_data_for_connection($id2);
+                $awaited_for = $this->get_data_for_connection($id2);
 
-            if($awaits != null && $awaited_for != null &&
-                $awaits->whereHas("waits_for", function($q) use ($awaited_for){ $q->where("awaited_for_id", "=", $awaited_for->id); })->count() == 0
-            ){
+                if($awaits != null && $awaited_for != null &&
+                    $awaits->whereHas("waits_for", function($q) use ($awaited_for){ $q->where("awaited_for_id", "=", $awaited_for->id); })->count() == 0
+                ){
 
-                $awaits->waits_for()->attach($awaited_for, [
-                    'waits_for_minutes' => $row['waits_for'],
-                    'waits_in' => $row['stop'],
-                    'created_at' => DB::raw("CURRENT_TIMESTAMP"),
-                    'updated_at' => DB::raw("CURRENT_TIMESTAMP"),
-                ]);
-            } else if($awaits == null && $awaited_for != null){
-                $this->logger->warn($id1);
-            } else if($awaits != null && $awaited_for == null){
-                $this->logger->warn($id2);
-            } else if($awaits == null && $awaited_for == null){
-                $this->logger->warn($id1);
-                $this->logger->warn($id2);
-            }
+                    $awaits->waits_for()->attach($awaited_for, [
+                        'waits_for_minutes' => $row['waits_for'],
+                        'waits_in' => $row['stop'],
+                        'created_at' => DB::raw("CURRENT_TIMESTAMP"),
+                        'updated_at' => DB::raw("CURRENT_TIMESTAMP"),
+                    ]);
+                } else if($awaits == null && $awaited_for != null){
+                    $this->logger->warn($id1);
+                } else if($awaits != null && $awaited_for == null){
+                    $this->logger->warn($id2);
+                } else if($awaits == null && $awaited_for == null){
+                    $this->logger->warn($id1);
+                    $this->logger->warn($id2);
+                }
+            });
         }
         //
     }
