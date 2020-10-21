@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('get:data-snapshot')->everyMinute()->withoutOverlapping(5);
+        $schedule->command('telescope:prune')->hourly();
     }
 
     /**
