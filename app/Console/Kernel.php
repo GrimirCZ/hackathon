@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\GetDataSnapshot;
 use App\Console\Commands\ImportWaitsForCommand;
+use App\Console\Commands\ReduceSnapshotData;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
         //
         GetDataSnapshot::class,
         ImportWaitsForCommand::class,
+        ReduceSnapshotData::class,
     ];
 
     /**
@@ -30,6 +32,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('get:data-snapshot')->everyMinute()->withoutOverlapping(5);
+        $schedule->command('reduce-data')->everyFifteenMinutes()->withoutOverlapping(60);
         $schedule->command('telescope:prune')->hourly();
     }
 
