@@ -16,6 +16,7 @@ class ConnectionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'identifier' => $this->identifier,
             'name' => $this->name,
             'vehicle_type' => $this->vehicle_type,
