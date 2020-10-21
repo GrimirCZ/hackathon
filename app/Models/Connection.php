@@ -20,4 +20,14 @@ class Connection extends Model
     {
         return $this->hasMany(Snapshot::class);
     }
+
+    public function waits_for()
+    {
+        return $this->belongsToMany(Connection::class, "waited_for_connections", "awaiter_id", "awaited_for_id");
+    }
+
+    public function awaited_for_by()
+    {
+        return $this->belongsToMany(Connection::class, "waited_for_connections", "awaited_for_id", "awaiter_id");
+    }
 }
