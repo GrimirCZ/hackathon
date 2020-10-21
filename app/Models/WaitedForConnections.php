@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WaitedForConnections extends Model
 {
     protected $fillable = [
-        'waits_for_minutes', 'waits_int',
+        'minutes', 'station',
         'awaiter_id', 'awaited_for_id'
     ];
 

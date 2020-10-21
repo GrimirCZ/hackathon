@@ -89,8 +89,8 @@ class WaitForImport implements ToCollection, WithHeadingRow
                 ){
 
                     $awaits->waits_for()->attach($awaited_for, [
-                        'waits_for_minutes' => $row['waits_for'],
-                        'waits_in' => $row['stop'],
+                        'minutes' => $row['waits_for'],
+                        'station' => $row['stop'],
                         'created_at' => DB::raw("CURRENT_TIMESTAMP"),
                         'updated_at' => DB::raw("CURRENT_TIMESTAMP"),
                     ]);

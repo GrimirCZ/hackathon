@@ -15,8 +15,8 @@ class WaitedForResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'minutes' => $this->waits_for_minutes,
-            'station' => $this->waits_in,
+            'minutes' => $this->minutes,
+            'station' => $this->station,
             'for' => new ConnectionResource($this->awaited_for()->first())
         ];
     }
