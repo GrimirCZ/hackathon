@@ -29,7 +29,7 @@ class ConnectionDetailResource extends JsonResource
 
             'current_state' => $this->when($this->snapshots()->exists(), new SnapshotResource($this->snapshots()->orderByDesc("created_at")->first())),
             'waits_for' => WaitedForResource::collection(WaitedForConnections::where("awaiter_id", "=", $this->id)->get()),
-            'delays_aggregate' => $this->when($this->delays()->exists(), DelayResource::collection($this->delays()->orderByDesc("start")->get())),
+            'delays_aggregate' => $this->when($this->delays()->exists(), DelayResource::collection($this->delays()->orderBy("start")->get())),
 
             'from' => $this->from,
             'to' => $this->to,
