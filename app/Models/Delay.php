@@ -11,4 +11,9 @@ class Delay extends Model
     protected $fillable = [
         'delay', 'start', 'end', 'connection_id'
     ];
+
+    public function connection()
+    {
+        return $this->belongsTo(Connection::class);
+    }
 }

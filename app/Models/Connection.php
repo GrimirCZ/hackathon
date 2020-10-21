@@ -21,6 +21,12 @@ class Connection extends Model
         return $this->hasMany(Snapshot::class);
     }
 
+    public function delays()
+    {
+        return $this->hasMany(Delay::class);
+    }
+
+
     public function waits_for()
     {
         return $this->belongsToMany(Connection::class, "waited_for_connections", "awaiter_id", "awaited_for_id");
