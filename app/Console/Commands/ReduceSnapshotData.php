@@ -13,7 +13,7 @@ class ReduceSnapshotData extends Command
 {
     protected $signature = 'reduce-data';
 
-    protected $description = 'Command description';
+    protected $description = 'Reduce snapshot data to 5 minute aggregates';
 
     public function handle()
     {
@@ -40,6 +40,11 @@ class ReduceSnapshotData extends Command
                 $time_frame_end->setMinutes($min_end);
                 $time_frame_end->setSeconds(0);
                 $time_frame_end->setMicroseconds(0);
+
+                // do not reduce if in future
+                if($time_frame_end >= Carbon::now()){
+                    return;
+                }
 
 //                $this->info("Reducing: " . $snp->connection_id . " from: $time_frame_start to: $time_frame_end");
 
