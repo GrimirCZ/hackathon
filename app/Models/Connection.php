@@ -12,6 +12,8 @@ class Connection extends Model
 
         'train_number', 'line_number', 'service_number',
 
+        'is_known',
+
         'from', 'to',
         'operator'
     ];

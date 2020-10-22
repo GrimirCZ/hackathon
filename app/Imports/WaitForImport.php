@@ -25,8 +25,13 @@ class WaitForImport implements ToCollection, WithHeadingRow
         return preg_replace("/([a-zA-Z]+)(\d+)/", "K-$2", $line);
     }
 
+    function get_train_name($line)
+    {
+        return preg_replace("/([a-zA-Z]+)(\d+)/", "$1 $2", $line);
+    }
 
-    function get_data_for_connection($identifier, $type)
+
+    function get_data_for_connection($identifier, Collection $row, $type, $line)
     {
         $res = Connection::where("identifier", "=", $identifier)->first();
 
@@ -39,7 +44,15 @@ class WaitForImport implements ToCollection, WithHeadingRow
             ->json();
 
         if(!isset($res['vehicleType'])){ // check if data present
-            return null;
+            $this->logger->warn("creating unknown " . $identifier);
+            return Connection::firstOrCreate([
+                'identifier' => $identifier,
+            ], [
+                'name' => $this->get_train_name($line),
+                'vehicle_type' => $type == "BUS" ? "A" : "V",
+                'operator' => $row['operator'],
+                'is_known' => false
+            ]);
         }
 
         $this->logger->info("creating " . $identifier);
@@ -64,7 +77,7 @@ class WaitForImport implements ToCollection, WithHeadingRow
         $con_data['from'] = $res['stations'][0]['name'];
         $con_data['to'] = $res['stations'][count($res['stations']) - 1]['name'];
 
-        $res = Connection::create($con_data);
+        $res = Connection::firstOrCreate(['identifier' => $identifier], $con_data);
         return $res;
     }
 
@@ -93,9 +106,9 @@ class WaitForImport implements ToCollection, WithHeadingRow
                 $this->logger->info("id1: " . $id1 . " id2: " . $id2);
 
 
-                $awaits = $this->get_data_for_connection($id1, "BUS");
+                $awaits = $this->get_data_for_connection($id1, $row, "BUS", $row['line1']);
 
-                $awaited_for = $this->get_data_for_connection($id2, $row['vehicletype']);
+                $awaited_for = $this->get_data_for_connection($id2, $row, $row['vehicletype'], $row['line2']);
 
                 if($awaits != null && $awaited_for != null &&
                     $awaits->whereHas("waits_for", function($q) use ($awaited_for){ $q->where("awaited_for_id", "=", $awaited_for->id); })->count() == 0

@@ -1,4 +1,4 @@
-line1,service1,dopravce,tč,odjezd,stop,minutes,vehicleType,line2,service2,dopravce ,z/doZast,nav.čas
+line1,service1,dopravce,tč,odjezd,stop,minutes,vehicleType,line2,service2,operator,from,nav.čas
 89,1,CDS s.r.o. Náchod,2,9:21,"Hronov,aut.st.",5,BUS,640101,11,CDS s.r.o. Náchod,Police n.Met.,9:15
 89,1,CDS s.r.o. Náchod,2,9:21,"Hronov,aut.st.",5,BUS,640101,18,CDS s.r.o. Náchod,Náchod,9:11
 89,1,CDS s.r.o. Náchod,1,9:17,"Hronov,žel.st.",10,Vlak,Sp1844,,České Dráhy,Starkoč,9:10
