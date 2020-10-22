@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ConnectionResource;
 use App\Models\Connection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Request;
 
 class SearchController extends Controller
 {
-    public function __invoke($query)
+    public function __invoke($query, Request $request)
     {
         $connections = Connection::where(DB::raw("LOWER(REPLACE(`name`, ' ', ''))"), "like", DB::raw("LOWER(REPLACE('%$query%', ' ',''))"))
             ->join("snapshots", "snapshots.connection_id", "=", "connections.id")
@@ -31,11 +31,16 @@ class SearchController extends Controller
             ->select("connections.*", DB::raw("0 as time"))
             ->distinct();
 
+        $q = $connections_with_snapshot
+            ->union($connections_without_snapshot)
+            ->orderByDesc("time");
+
+        if($request->query("limit") != null){
+            $q->limit($request->query("limit"));
+        }
+
         return ConnectionResource::collection(
-            $connections_with_snapshot
-                ->union($connections_without_snapshot)
-                ->orderByDesc("time")
-                ->get()
+            $q->get()
         );
 
         //
