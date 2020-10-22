@@ -22,12 +22,12 @@ class WaitForImport implements ToCollection, WithHeadingRow
 
     function get_train_id($line)
     {
-        return preg_replace("/([a-zA-Z]+)(\d+)/", "K-$2", $line);
+        return preg_replace("/([a-zA-Z]+)?(\d+)/", "K-$2", $line);
     }
 
     function get_train_name($line)
     {
-        return preg_replace("/([a-zA-Z]+)(\d+)/", "$1 $2", $line);
+        return preg_replace("/([a-zA-Z]+)?(\d+)/", "$1 $2", $line);
     }
 
 
