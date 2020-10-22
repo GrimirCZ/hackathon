@@ -31,6 +31,8 @@ class ConnectionDetailResource extends JsonResource
             'waits_for' => WaitedForResource::collection(WaitedForConnections::where("awaiter_id", "=", $this->id)->get()),
             'delays_aggregate' => $this->when($this->delays()->exists(), DelayResource::collection($this->delays()->orderBy("start")->get())),
 
+            'is_known' => $this->is_known,
+
             'from' => $this->from,
             'to' => $this->to,
             'operator' => $this->operator

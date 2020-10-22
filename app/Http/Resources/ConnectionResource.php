@@ -28,6 +28,8 @@ class ConnectionResource extends JsonResource
 
             'current_state' => $this->when($this->snapshots()->exists(), new SnapshotResource($this->snapshots()->orderByDesc("created_at")->first())),
 
+            'is_known' => $this->is_known,
+
             'from' => $this->from,
             'to' => $this->to,
             'operator' => $this->operator
