@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('spojeni/hledat/{query?}', SearchController::class);
+Route::get('spojeni/hledat/{query}', SearchController::class);
 Route::resource('spojeni', ConnectionController::class);
