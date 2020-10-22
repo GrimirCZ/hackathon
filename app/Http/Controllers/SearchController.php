@@ -21,6 +21,7 @@ class SearchController extends Controller
                 $join->on("connections.id", "=", "snp.con_id");
             })->orderByDesc("snp.time")
                 ->select("connections.*")
+                ->distinct()
                 ->get()
         );
         //
