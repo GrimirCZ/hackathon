@@ -13,8 +13,9 @@ class SearchController extends Controller
     {
         $connections = Connection::where(DB::raw("LOWER(REPLACE(`name`, ' ', ''))"), "like", DB::raw("LOWER(REPLACE('%$query%', ' ',''))"))
             ->join("snapshots", "snapshots.connection_id", "=", "connections.id")
-            ->orderByDesc("snapshots.time")
-            ->select("snapshots.time as time", "snapshots.connection_id as con_id")
+            ->orderByDesc(DB::raw("max(snapshots.time)"))
+            ->select(DB::raw("max(snapshots.time) as time"), "connections.id as con_id")
+            ->groupBy("connections.id")
             ->distinct();
 
         return ConnectionResource::collection(
