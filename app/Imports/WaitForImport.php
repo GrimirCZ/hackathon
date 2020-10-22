@@ -44,7 +44,7 @@ class WaitForImport implements ToCollection, WithHeadingRow
 
         $this->logger->info("creating " . $identifier);
 
-        sleep(rand(0, 4));
+        sleep(rand(0, 1));
 
         $con_data = [
             'identifier' => $identifier,
