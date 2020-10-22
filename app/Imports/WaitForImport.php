@@ -22,7 +22,13 @@ class WaitForImport implements ToCollection, WithHeadingRow
 
     function get_train_id($line)
     {
-        return preg_replace("/([a-zA-Z]+)?(\d+)/", "K-$2", $line);
+        $res = preg_replace("/([a-zA-Z]+)?(\d+)/", "K-$2", $line);
+
+        if($res == $line){//error
+            $res = $this->get_train_id("N" . $line);
+        }
+
+        return $res;
     }
 
     function get_train_name($line)
@@ -39,7 +45,6 @@ class WaitForImport implements ToCollection, WithHeadingRow
             return $res;
         }
 
-        $this->logger->info("http://tabule.oredo.cz/idspublicservices/api/servicedetail?id=$identifier");
         $res = Http::get("http://tabule.oredo.cz/idspublicservices/api/servicedetail?id=$identifier")
             ->throw()
             ->json();
