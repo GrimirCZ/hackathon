@@ -15,13 +15,14 @@ class SearchController extends Controller
             ->join("snapshots", "snapshots.connection_id", "=", "connections.id")
             ->orderByDesc("snapshots.time")
             ->select("snapshots.time as time", "snapshots.connection_id as con_id")
-        ->distinct();
+            ->distinct();
 
         return ConnectionResource::collection(
             Connection::joinSub($connections, "snp", function($join){
                 $join->on("connections.id", "=", "snp.con_id");
             })->orderByDesc("snp.time")
-                ->select("connections.*")
+                ->select("connections.*", "snp.time")
+                ->distinct()
                 ->get()
         );
         //
