@@ -10,8 +10,8 @@ class AddIsKnownToConnections extends Migration
     {
         Schema::table('connections', function(Blueprint $table){
             $table->boolean("is_known")->default(true);
-            $table->string('from')->nullable();
-            $table->string('to')->nullable();
+            $table->string('from')->nullable()->change();
+            $table->string('to')->nullable()->change();
             //
         });
     }
