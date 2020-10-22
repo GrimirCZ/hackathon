@@ -39,6 +39,7 @@ class WaitForImport implements ToCollection, WithHeadingRow
             return $res;
         }
 
+        $this->logger->info("http://tabule.oredo.cz/idspublicservices/api/servicedetail?id=$identifier");
         $res = Http::get("http://tabule.oredo.cz/idspublicservices/api/servicedetail?id=$identifier")
             ->throw()
             ->json();
