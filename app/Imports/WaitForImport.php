@@ -69,7 +69,7 @@ class WaitForImport implements ToCollection, WithHeadingRow
                 'operator' => $row['operator'],
                 'line_number' => $type == "BUS" ? $line : null,
                 'service_number' => $type == "BUS" ? $service : null,
-                'train_number' => $type == "BUS" ? null : $this->get_train_number(),
+                'train_number' => $type == "BUS" ? null : $this->get_train_number($line),
                 'is_known' => false
             ]);
         }
