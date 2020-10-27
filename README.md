@@ -1,4 +1,4 @@
-# Backend Hlídač spojů
+# Backend aplikace Hlídač spojů
 
 Tento repozitář obsahuje backendovou část aplikace [Hlídač spojů](https://zpozdeni.puhony.eu/) vytvořenou na [Open Data Hackathon Královehradeckého Kraje](https://www.tchk.cz/akce/open-data-hackathon/). Backend má za úkol sledovat průběžná zpoždění, počítat průběžná zpoždění a sledovat návaznosti autobusových a vlakových linek. Backen je naprogramován v PHP za využití frameworku [Laravel](https://laravel.com).
 
