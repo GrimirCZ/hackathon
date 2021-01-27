@@ -35,9 +35,7 @@ class SearchController extends Controller
             ->union($connections_without_snapshot)
             ->orderByDesc("time");
 
-        if($request->query("limit") != null){
-            $q->limit($request->query("limit"));
-        }
+        $q->limit($request->query("limit") ?? 3);
 
         return ConnectionResource::collection(
             $q->get()
