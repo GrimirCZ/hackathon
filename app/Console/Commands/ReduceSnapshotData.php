@@ -17,21 +17,23 @@ class ReduceSnapshotData extends Command
 
     public function handle()
     {
+        $time_frame_length = 5;
+
         Snapshot::whereNull("delay")->where("is_old", true)->delete();
 
         while(Snapshot::orderBy("time")->first()->is_old){
-            DB::transaction(function(){
+            DB::transaction(function() use ($time_frame_length){
                 $snp = Snapshot::orderBy("time")->first();
 
                 $time_frame_start = new Carbon($snp->time);
 
-                $min_start = floor($time_frame_start->minute / 5) * 5; // round to 5
+                $min_start = floor($time_frame_start->minute / $time_frame_length) * $time_frame_length; // round to 5
                 $hour_start = $time_frame_start->hour;
                 $time_frame_start->setMinutes($min_start);
                 $time_frame_start->setSeconds(0);
                 $time_frame_start->setMicroseconds(0);
 
-                $min_end = ($min_start + 5) % 60;
+                $min_end = ($min_start + $time_frame_length) % 60;
                 if($min_end < $min_start)
                     $hour_start++;
 

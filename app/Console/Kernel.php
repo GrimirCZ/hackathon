@@ -31,8 +31,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('get:data-snapshot')->everyMinute()->withoutOverlapping(5);
-        $schedule->command('reduce-data')->everyFifteenMinutes()->withoutOverlapping(60);
+        $schedule->command('get:data-snapshot')->everyMinute()->withoutOverlapping(10);
+        $schedule->command('reduce-data')->everyFifteenMinutes()->withoutOverlapping();
         $schedule->command('telescope:prune')->hourly();
     }
 
