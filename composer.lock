@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "967b691e4000f4ae90fb995d5376201f",
+    "content-hash": "b84af67ece7998a74b5e428a6e064e71",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1289,22 +1289,22 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.2.0",
+            "version": "v4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "86665787a7183f85d9e4551ec059f239e48af89c"
+                "reference": "c21b0e38c3e1e7f12a391eb97f092de1d1f2bdd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/86665787a7183f85d9e4551ec059f239e48af89c",
-                "reference": "86665787a7183f85d9e4551ec059f239e48af89c",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/c21b0e38c3e1e7f12a391eb97f092de1d1f2bdd8",
+                "reference": "c21b0e38c3e1e7f12a391eb97f092de1d1f2bdd8",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "laravel/framework": "^8.0",
-                "php": "^7.3",
+                "laravel/framework": "^8.2",
+                "php": "^7.3|^8.0",
                 "symfony/var-dumper": "^5.0"
             },
             "require-dev": {
@@ -1321,7 +1321,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Laravel\\Telescope\\": "src/"
+                    "Laravel\\Telescope\\": "src/",
+                    "Laravel\\Telescope\\Database\\Factories\\": "database/factories/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1344,7 +1345,11 @@
                 "laravel",
                 "monitoring"
             ],
-            "time": "2020-10-20T19:07:01+00:00"
+            "support": {
+                "issues": "https://github.com/laravel/telescope/issues",
+                "source": "https://github.com/laravel/telescope/tree/v4.4.1"
+            },
+            "time": "2021-01-26T20:11:13+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -7988,5 +7993,5 @@
         "php": "^7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
